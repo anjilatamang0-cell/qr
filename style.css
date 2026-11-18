@@ -1,0 +1,289 @@
+/* ===== Color and size settings (change them here!) ===== */
+:root {
+  --bg: #ffe9f1;          /* soft pastel pink background */
+  --card: #ffffff;        /* white cards */
+  --pink: #ff8fb8;        /* main pink */
+  --pink-dark: #e8588f;   /* darker pink for hover / text */
+  --pink-light: #fff3f8;  /* very light pink for list items */
+  --pink-line: #ffd0e2;   /* borders */
+  --text: #5b3a48;        /* soft brown-pink text (easy to read) */
+  --purple: #b79cff;      /* cute pastel purple */
+  --purple-dark: #8e6ee0; /* darker purple for hover / text */
+  --purple-light: #f5f0ff;/* very light lavender */
+  --purple-line: #e2d6ff; /* lavender borders */
+  --error: #d6336c;
+  --radius: 22px;
+  --shadow: 0 8px 24px rgba(232, 88, 143, 0.15);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(170deg, var(--bg) 0%, var(--bg) 50%, #f1e8ff 100%) fixed;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ===== Header ===== */
+.site-header {
+  text-align: center;
+  padding: 36px 16px 8px;
+}
+.site-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--pink-dark);
+  background: linear-gradient(90deg, var(--pink-dark), var(--purple-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.site-header p {
+  margin: 4px 0 0;
+  font-weight: 500;
+  color: var(--purple-dark);
+}
+
+/* ===== Layout ===== */
+.container {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-top: 6px solid var(--purple);
+  padding: 24px;
+}
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  color: var(--pink-dark);
+}
+.card h2 span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--purple-dark);
+}
+.hint {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+/* ===== Buttons ===== */
+.file-button,
+.primary-button {
+  display: inline-block;
+  border: none;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.file-button:hover,
+.primary-button:hover { background: var(--pink-dark); }
+.file-button:active,
+.primary-button:active { transform: scale(0.97); }
+
+/* Hide the plain file input; the label above acts as the button.
+   (Still reachable with the keyboard.) */
+#file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+#file-input:focus-visible + .message,
+#file-input:focus-visible ~ .message { outline: none; }
+.file-button:has(+ #file-input:focus-visible) {
+  outline: 3px solid var(--pink-dark);
+  outline-offset: 3px;
+}
+
+button:focus-visible,
+input[type="text"]:focus-visible {
+  outline: 3px solid var(--pink-dark);
+  outline-offset: 2px;
+}
+
+/* ===== Button row and camera ===== */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.camera-box {
+  margin-top: 16px;
+  text-align: center;
+}
+.camera-box video {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  background: #000;
+  border: 3px solid var(--pink);
+  border-radius: 18px;
+}
+.camera-box .hint { margin: 8px 0; }
+
+/* ===== Messages ===== */
+.message {
+  min-height: 1.7em;
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.message.error { color: var(--error); }
+.message.success { color: var(--pink-dark); }
+
+.preview {
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  margin: 8px auto 0;
+  border-radius: 14px;
+  border: 2px solid var(--pink-line);
+}
+
+/* ===== Name list ===== */
+.name-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.name-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--pink-light);
+  border: 2px solid var(--pink-line);
+  border-radius: 16px;
+  padding: 10px 10px 10px 18px;
+}
+.name-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;   /* long text wraps instead of overflowing */
+}
+.delete-button {
+  flex-shrink: 0;
+  border: 2px solid var(--pink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--pink-dark);
+  font-family: inherit;
+  font-weight: 700;
+  padding: 4px 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.delete-button:hover {
+  background: var(--pink-dark);
+  border-color: var(--pink-dark);
+  color: #fff;
+}
+.empty {
+  margin: 0;
+  text-align: center;
+  color: var(--pink);
+  font-weight: 500;
+}
+
+/* ===== QR code creation ===== */
+.create-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.create-row input[type="text"] {
+  flex: 1 1 180px;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  padding: 10px 16px;
+  border: 2px solid var(--pink-line);
+  border-radius: 999px;
+  background: #fff;
+}
+.qr-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+.qr-result canvas {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--pink-line);
+  border-radius: 16px;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  text-align: center;
+  padding: 16px 16px 32px;
+  font-size: 0.85rem;
+  color: var(--pink);
+}
+
+/* ===== Small screens ===== */
+@media (max-width: 480px) {
+  .site-header h1 { font-size: 1.6rem; }
+  .card { padding: 18px; }
+}
+
+/* ===== A little bit of purple ===== */
+#camera-btn,
+#generate-btn {
+  background: var(--purple);
+}
+#camera-btn:hover,
+#generate-btn:hover {
+  background: var(--purple-dark);
+}
+
+.name-list li {
+  background: var(--purple-light);
+  border-color: var(--purple-line);
+}
+.delete-button {
+  border-color: var(--purple);
+  color: var(--purple-dark);
+}
+.delete-button:hover {
+  background: var(--purple-dark);
+  border-color: var(--purple-dark);
+  color: #fff;
+}
+
+.camera-box video { border-color: var(--purple); }
+.preview,
+.qr-result canvas { border-color: var(--purple-line); }
+.create-row input[type="text"] { border-color: var(--purple-line); }
+.create-row input[type="text"]:focus-visible,
+button:focus-visible,
+.file-button:has(+ #file-input:focus-visible) { outline-color: var(--purple-dark); }
+
+.empty { color: var(--purple); }
+.site-footer { color: var(--purple-dark); }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QRコードリーダー | QR Code Reader & Generator</title>
+
+  <!-- Cute rounded Japanese font (falls back to system fonts if offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>QRコードリーダー</h1>
+    <p>QR Code Reader &amp; Generator</p>
+  </header>
+
+  <main class="container">
+
+    <!-- 3-1: Image selection / QR code reading -->
+    <section class="card" aria-labelledby="read-title">
+      <h2 id="read-title">画像の選び方 <span>Read a QR code</span></h2>
+      <p class="hint">QRコードの画像を選ぶか、カメラで読み取ってください。<br>Choose an image with a QR code, or scan it with your camera.</p>
+
+      <div class="button-row">
+        <label class="file-button" for="file-input">画像を選ぶ / Choose image</label>
+        <input type="file" id="file-input" accept="image/*" multiple>
+
+        <!-- Camera scanner button -->
+        <button type="button" id="camera-btn" class="primary-button">カメラで読み取る / Scan with camera</button>
+      </div>
+
+      <!-- Camera view (shown only while scanning) -->
+      <div id="camera-box" class="camera-box" hidden>
+        <video id="camera-video" playsinline muted></video>
+        <p class="hint">QRコードを枠の中に映してください。<br>Point the QR code at the camera.</p>
+        <button type="button" id="camera-stop-btn" class="delete-button">止める / Stop</button>
+      </div>
+
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+
+      <!-- Preview of the chosen image -->
+      <img id="preview" class="preview" alt="選んだ画像 / Selected image" hidden>
+
+      <!-- Hidden canvas used only for decoding -->
+      <canvas id="work-canvas" hidden></canvas>
+    </section>
+
+    <!-- 3-2 / 3-3: Name list with delete buttons -->
+    <section class="card" aria-labelledby="list-title">
+      <h2 id="list-title">名前の表示 <span>Scanned names</span></h2>
+      <p id="empty-message" class="empty">まだ名前がありません。<br>No names yet. Scan a QR code!</p>
+      <ul id="name-list" class="name-list"></ul>
+    </section>
+
+    <!-- 3-5: QR code creation -->
+    <section class="card" aria-labelledby="create-title">
+      <h2 id="create-title">QRコードの作成 <span>Create a QR code</span></h2>
+      <p class="hint">名前や好きな言葉を入力してください。<br>Enter your name or a favorite word.</p>
+
+      <div class="create-row">
+        <input type="text" id="text-input" maxlength="200"
+               placeholder="例: さくら / e.g. Sakura" aria-label="QRコードにする文字 / Text for the QR code">
+        <button type="button" id="generate-btn" class="primary-button">作成 / Create</button>
+      </div>
+
+      <p id="create-message" class="message" role="status" aria-live="polite"></p>
+
+      <div id="qr-result" class="qr-result" hidden>
+        <canvas id="qr-canvas" width="240" height="240"></canvas>
+        <button type="button" id="download-btn" class="primary-button">画像をダウンロード / Download</button>
+      </div>
+
+      <!-- QRCode.js draws here; kept hidden, then copied to the canvas above -->
+      <div id="qr-temp" hidden></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">♡ Made with HTML, CSS &amp; JavaScript ♡</footer>
+
+  <!-- Libraries (loaded from CDN, so an internet connection is needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Our own code -->
+  <script src="script.js"></script>
+</body>
+</html>
